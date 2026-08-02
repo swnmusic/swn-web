@@ -1,0 +1,1659 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <meta name="theme-color" content="#050403">
+  <meta name="description" content="Listen to SWN">
+  <title>Music — SWN</title>
+
+  <style>
+    :root {
+      --black: #050403;
+      --black-soft: #0b0907;
+      --panel: rgba(10, 8, 6, 0.92);
+      --panel-light: rgba(25, 18, 11, 0.72);
+      --gold: #d8a852;
+      --gold-light: #f0cf8b;
+      --gold-dark: #684514;
+      --ivory: #f1eadf;
+      --grey: #918b82;
+      --line: rgba(216, 168, 82, 0.24);
+      --line-strong: rgba(216, 168, 82, 0.55);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 50% 12%, rgba(126, 76, 15, 0.13), transparent 34%),
+        var(--black);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+      overflow-x: hidden;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.28),
+          rgba(0, 0, 0, 0.72) 35%,
+          rgba(0, 0, 0, 0.96) 72%
+        ),
+        url("swn-landing.jpeg");
+      background-position: center top;
+      background-size: cover;
+      opacity: 0.55;
+      transform: scale(1.02);
+    }
+
+    .page-background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 0 18%, rgba(0, 0, 0, 0.52) 70%),
+        linear-gradient(to bottom, transparent, #050403 88%);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 82px;
+      padding: 0 4vw;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3, 3, 3, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: clamp(28px, 3vw, 52px);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      transform: scaleX(1.08);
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 3.2vw, 56px);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .desktop-nav a {
+      position: relative;
+      padding: 32px 0 28px;
+      color: rgba(241, 234, 223, 0.72);
+      transition: color 180ms ease;
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active {
+      color: var(--gold-light);
+    }
+
+    .desktop-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+      height: 1px;
+      background: var(--gold);
+      box-shadow: 0 0 14px rgba(216, 168, 82, 0.65);
+    }
+
+    .header-symbol {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    .header-symbol::before,
+    .header-symbol::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+    }
+
+    .header-symbol::after {
+      inset: 12px;
+      background: var(--gold-light);
+      border: 0;
+      box-shadow: 0 0 12px rgba(216, 168, 82, 0.85);
+    }
+
+    .mobile-menu-button {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--gold-light);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .hero {
+      width: min(1440px, 94vw);
+      margin: 0 auto;
+      padding: 70px 0 36px;
+    }
+
+    .hero-label {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 900px;
+      margin: 0;
+      color: var(--ivory);
+      font-size: clamp(42px, 7vw, 96px);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-copy {
+      max-width: 580px;
+      margin: 26px 0 0;
+      color: rgba(241, 234, 223, 0.62);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .music-shell {
+      width: min(1440px, 94vw);
+      margin: 0 auto 90px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .main-column {
+      min-width: 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .player-card,
+    .track-list,
+    .side-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(17, 13, 9, 0.97), rgba(4, 4, 4, 0.97));
+      box-shadow: var(--shadow);
+    }
+
+    .player-card {
+      border-radius: 22px;
+      padding: 26px;
+    }
+
+    .player-layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .cover-wrap {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      background: #000;
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.62),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .cover-wrap img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 34%;
+      opacity: 0.92;
+      transition: transform 1.2s ease, filter 1.2s ease;
+    }
+
+    .cover-wrap.playing img {
+      transform: scale(1.025);
+      filter: brightness(1.08);
+    }
+
+    .cover-shade {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, transparent 38%, rgba(0, 0, 0, 0.82)),
+        radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.26));
+      pointer-events: none;
+    }
+
+    .cover-title {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 16px;
+      text-align: center;
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .track-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .track-number {
+      margin: 0 0 10px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .track-title {
+      margin: 0;
+      color: var(--ivory);
+      font-size: clamp(30px, 4vw, 56px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .track-artist {
+      margin: 10px 0 0;
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 0.08em;
+    }
+
+    .favorite-button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold);
+      font-size: 24px;
+      cursor: pointer;
+      transition:
+        transform 180ms ease,
+        background 180ms ease,
+        border-color 180ms ease;
+    }
+
+    .favorite-button:hover {
+      transform: scale(1.05);
+      background: rgba(216, 168, 82, 0.08);
+      border-color: var(--line-strong);
+    }
+
+    .favorite-button.active {
+      color: var(--gold-light);
+      background: rgba(216, 168, 82, 0.14);
+    }
+
+    .version-name {
+      margin: 26px 0 0;
+      color: var(--grey);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .waveform-shell {
+      position: relative;
+      width: 100%;
+      margin-top: 24px;
+      padding: 18px 0 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .waveform {
+      position: relative;
+      height: 96px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+    }
+
+    .wave-bar {
+      flex: 1 1 auto;
+      min-width: 2px;
+      height: var(--bar-height);
+      max-height: 88px;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          to top,
+          rgba(97, 59, 9, 0.46),
+          rgba(216, 168, 82, 0.88),
+          rgba(248, 222, 165, 0.98)
+        );
+      opacity: 0.43;
+      transform-origin: center;
+      transition:
+        opacity 220ms linear,
+        transform 260ms ease,
+        filter 220ms ease;
+    }
+
+    .wave-bar.active {
+      opacity: 1;
+      filter:
+        brightness(1.12)
+        drop-shadow(0 0 5px rgba(216, 168, 82, 0.5));
+    }
+
+    .waveform.playing .wave-bar {
+      animation: breathe 1.8s ease-in-out infinite alternate;
+      animation-delay: calc(var(--index) * -22ms);
+    }
+
+    @keyframes breathe {
+      from {
+        transform: scaleY(0.88);
+      }
+      to {
+        transform: scaleY(1.08);
+      }
+    }
+
+    .playhead {
+      position: absolute;
+      top: 8px;
+      bottom: 0;
+      left: 0%;
+      width: 1px;
+      background: var(--gold-light);
+      box-shadow:
+        0 0 10px rgba(216, 168, 82, 0.95),
+        0 0 26px rgba(216, 168, 82, 0.55);
+      pointer-events: none;
+    }
+
+    .playhead::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--gold-light);
+      box-shadow: 0 0 14px rgba(216, 168, 82, 0.9);
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--grey);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .transport {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .transport-left,
+    .transport-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .transport-right {
+      justify-content: flex-end;
+    }
+
+    .control-button {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: rgba(241, 234, 223, 0.8);
+      font-size: 23px;
+      cursor: pointer;
+      transition:
+        color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .control-button:hover {
+      color: var(--gold-light);
+      transform: scale(1.06);
+    }
+
+    .play-button {
+      width: 84px;
+      height: 84px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      color: #171008;
+      background:
+        radial-gradient(circle at 35% 30%, #f4dca9, #d8a852 55%, #8f5f21);
+      box-shadow:
+        0 0 0 8px rgba(216, 168, 82, 0.035),
+        0 15px 45px rgba(0, 0, 0, 0.55),
+        0 0 35px rgba(216, 168, 82, 0.13);
+      font-size: 30px;
+      cursor: pointer;
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.04);
+      box-shadow:
+        0 0 0 10px rgba(216, 168, 82, 0.055),
+        0 18px 55px rgba(0, 0, 0, 0.62),
+        0 0 45px rgba(216, 168, 82, 0.22);
+    }
+
+    .quality-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 24px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--gold-light);
+      background: rgba(216, 168, 82, 0.055);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .quality-badge::before {
+      content: "◈";
+      color: var(--gold);
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold-light);
+    }
+
+    .volume-control input {
+      width: 110px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .track-list {
+      border-radius: 18px;
+      padding: 8px;
+    }
+
+    .track-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr) auto 44px;
+      gap: 14px;
+      align-items: center;
+      padding: 18px 16px;
+      border: 0;
+      border-bottom: 1px solid rgba(216, 168, 82, 0.1);
+      color: var(--ivory);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      transition:
+        background 180ms ease,
+        color 180ms ease;
+    }
+
+    .track-row:last-child {
+      border-bottom: 0;
+    }
+
+    .track-row:hover {
+      background: rgba(216, 168, 82, 0.055);
+    }
+
+    .track-row.active {
+      color: var(--gold-light);
+      background:
+        linear-gradient(
+          to right,
+          rgba(115, 71, 16, 0.55),
+          rgba(216, 168, 82, 0.12),
+          transparent
+        );
+    }
+
+    .track-index {
+      color: var(--gold);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-row-title {
+      font-size: 16px;
+    }
+
+    .track-duration {
+      color: var(--grey);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-mini-wave {
+      color: var(--gold);
+      font-size: 19px;
+      text-align: center;
+    }
+
+    .side-column {
+      display: grid;
+      gap: 18px;
+    }
+
+    .side-card {
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .side-title {
+      margin: 0 0 16px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .version-options,
+    .quality-options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .option-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 16px;
+      border: 1px solid rgba(216, 168, 82, 0.14);
+      border-radius: 12px;
+      color: rgba(241, 234, 223, 0.8);
+      background: rgba(255, 255, 255, 0.012);
+      text-align: left;
+      cursor: pointer;
+      transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        background 180ms ease;
+    }
+
+    .option-button:hover {
+      color: var(--gold-light);
+      border-color: var(--line-strong);
+    }
+
+    .option-button.active {
+      color: var(--gold-light);
+      border-color: rgba(216, 168, 82, 0.48);
+      background:
+        linear-gradient(
+          to right,
+          rgba(116, 71, 16, 0.62),
+          rgba(216, 168, 82, 0.08)
+        );
+      box-shadow: inset 3px 0 0 var(--gold);
+    }
+
+    .option-main {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .option-dot {
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+    }
+
+    .option-button.active .option-dot {
+      background: var(--gold-light);
+      box-shadow: 0 0 9px rgba(216, 168, 82, 0.75);
+    }
+
+    .option-meta {
+      color: var(--grey);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .streaming-note {
+      margin: 18px 0 0;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--grey);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .streaming-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+
+    .platforms {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .platform-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 12px;
+      border: 1px solid rgba(216, 168, 82, 0.14);
+      border-radius: 12px;
+      color: rgba(241, 234, 223, 0.78);
+      background: rgba(255, 255, 255, 0.018);
+      font-size: 12px;
+      text-align: center;
+      transition:
+        color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .platform-link:hover {
+      color: var(--gold-light);
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+
+    .coming-soon {
+      margin-top: 16px;
+      color: var(--grey);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .footer-symbol {
+      width: 76px;
+      height: 76px;
+      margin: 50px auto 0;
+      position: relative;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+    }
+
+    .footer-symbol::before,
+    .footer-symbol::after {
+      content: "";
+      position: absolute;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+    }
+
+    .footer-symbol::before {
+      inset: 13px;
+    }
+
+    .footer-symbol::after {
+      inset: 27px;
+      background: var(--gold);
+      box-shadow: 0 0 16px rgba(216, 168, 82, 0.7);
+    }
+
+    .footer-axis {
+      position: absolute;
+      top: -18px;
+      bottom: -18px;
+      left: 50%;
+      width: 1px;
+      background: var(--gold);
+      transform: translateX(-50%);
+    }
+
+    .footer-line {
+      width: min(1440px, 94vw);
+      height: 1px;
+      margin: -38px auto 70px;
+      background:
+        linear-gradient(
+          to right,
+          transparent,
+          var(--line-strong) 15%,
+          var(--line-strong) 42%,
+          transparent 42% 58%,
+          var(--line-strong) 58%,
+          var(--line-strong) 85%,
+          transparent
+        );
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 73px 0 auto;
+      z-index: 19;
+      padding: 18px 5vw 25px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3, 3, 3, 0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .mobile-nav.open {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mobile-nav a {
+      padding: 8px 0;
+      color: var(--ivory);
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1000px) {
+      .music-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .side-column {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .side-card:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .page-background {
+        background-image:
+          linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.82) 42%,
+            #050403 75%
+          ),
+          url("swn-landing-mobile.png");
+        background-position: center top;
+      }
+
+      .site-header {
+        min-height: 73px;
+        padding: 0 5vw;
+      }
+
+      .desktop-nav,
+      .header-symbol {
+        display: none;
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+
+      .hero {
+        width: 90vw;
+        padding: 48px 0 28px;
+      }
+
+      .hero-copy {
+        font-size: 14px;
+      }
+
+      .music-shell {
+        width: 92vw;
+        margin-bottom: 65px;
+      }
+
+      .player-card {
+        padding: 16px;
+        border-radius: 17px;
+      }
+
+      .player-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .cover-wrap {
+        width: min(78vw, 380px);
+        margin: 0 auto;
+      }
+
+      .track-heading {
+        align-items: center;
+      }
+
+      .track-title {
+        font-size: 34px;
+      }
+
+      .waveform {
+        height: 80px;
+        gap: 2px;
+      }
+
+      .transport {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 15px;
+      }
+
+      .transport-left,
+      .transport-right {
+        justify-content: center;
+      }
+
+      .transport-left {
+        order: 2;
+      }
+
+      .play-button {
+        order: 1;
+      }
+
+      .transport-right {
+        order: 3;
+      }
+
+      .quality-badge {
+        margin: 8px auto 0;
+        width: fit-content;
+      }
+
+      .side-column {
+        grid-template-columns: 1fr;
+      }
+
+      .side-card:last-child {
+        grid-column: auto;
+      }
+
+      .track-row {
+        grid-template-columns: 34px minmax(0, 1fr) auto;
+        padding: 17px 12px;
+      }
+
+      .track-mini-wave {
+        display: none;
+      }
+
+      .platforms {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-line {
+        margin-bottom: 45px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hero-title {
+        font-size: 48px;
+      }
+
+      .player-card {
+        padding: 13px;
+      }
+
+      .track-title {
+        font-size: 29px;
+      }
+
+      .favorite-button {
+        width: 40px;
+        height: 40px;
+      }
+
+      .wave-bar:nth-child(3n) {
+        display: none;
+      }
+
+      .platforms {
+        grid-template-columns: 1fr;
+      }
+
+      .volume-control input {
+        width: 90px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-background" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="SWN home">
+      <span class="brand-mark">SWN</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="active" href="#music">Music</a>
+      <a href="#visuals">Visuals</a>
+      <a href="#about">About</a>
+      <a href="#links">Links</a>
+    </nav>
+
+    <div class="header-symbol" aria-hidden="true"></div>
+
+    <button
+      class="mobile-menu-button"
+      id="mobileMenuButton"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+  </header>
+
+  <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#music">Music</a>
+    <a href="#visuals">Visuals</a>
+    <a href="#about">About</a>
+    <a href="#links">Links</a>
+    <a href="index.html">Home</a>
+  </nav>
+
+  <main>
+    <section class="hero" id="music">
+      <p class="hero-label">SWN · Streaming archive</p>
+      <h1 class="hero-title">Music as a living space.</h1>
+      <p class="hero-copy">
+        Original, instrumental and a cappella versions presented inside
+        the same listening experience. This first prototype uses
+        provisional content and simulated playback.
+      </p>
+    </section>
+
+    <section class="music-shell" aria-label="SWN music player">
+      <div class="main-column">
+        <article class="player-card">
+          <div class="player-layout">
+            <div class="cover-wrap" id="coverWrap">
+              <img
+                src="swn-landing-mobile.png"
+                alt="SWN artwork"
+              >
+              <div class="cover-shade"></div>
+              <div class="cover-title">22 · 22</div>
+            </div>
+
+            <div class="player-content">
+              <div class="track-heading">
+                <div>
+                  <p class="track-number" id="trackNumber">Track 01 / 04</p>
+                  <h2 class="track-title" id="trackTitle">I Tango You</h2>
+                  <p class="track-artist">SWN</p>
+                </div>
+
+                <button
+                  class="favorite-button"
+                  id="favoriteButton"
+                  type="button"
+                  aria-label="Add to favourites"
+                >
+                  ♡
+                </button>
+              </div>
+
+              <p class="version-name" id="versionName">
+                Original version
+              </p>
+
+              <div
+                class="waveform-shell"
+                id="waveformShell"
+                aria-label="Playback position"
+                role="slider"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                tabindex="0"
+              >
+                <div class="waveform" id="waveform"></div>
+                <div class="playhead" id="playhead"></div>
+              </div>
+
+              <div class="time-row">
+                <span id="elapsedTime">00:00</span>
+                <span id="totalTime">04:12</span>
+              </div>
+
+              <div class="transport">
+                <div class="transport-left">
+                  <button
+                    class="control-button"
+                    id="shuffleButton"
+                    type="button"
+                    aria-label="Shuffle"
+                  >
+                    ⇄
+                  </button>
+
+                  <button
+                    class="control-button"
+                    id="previousButton"
+                    type="button"
+                    aria-label="Previous track"
+                  >
+                    ◀│
+                  </button>
+                </div>
+
+                <button
+                  class="play-button"
+                  id="playButton"
+                  type="button"
+                  aria-label="Play"
+                >
+                  ▶
+                </button>
+
+                <div class="transport-right">
+                  <button
+                    class="control-button"
+                    id="nextButton"
+                    type="button"
+                    aria-label="Next track"
+                  >
+                    │▶
+                  </button>
+
+                  <button
+                    class="control-button"
+                    id="repeatButton"
+                    type="button"
+                    aria-label="Repeat"
+                  >
+                    ↻
+                  </button>
+
+                  <label class="volume-control" aria-label="Volume">
+                    <span>◖</span>
+                    <input
+                      id="volumeControl"
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="74"
+                    >
+                  </label>
+                </div>
+              </div>
+
+              <div class="quality-badge" id="qualityBadge">
+                Lossless · 24-bit / 48 kHz
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="track-list" id="trackList" aria-label="Track list"></div>
+      </div>
+
+      <aside class="side-column">
+        <section class="side-card">
+          <h3 class="side-title">Versions</h3>
+
+          <div class="version-options" id="versionOptions">
+            <button
+              class="option-button active"
+              type="button"
+              data-version="Original"
+            >
+              <span class="option-main">
+                <span class="option-dot"></span>
+                Original
+              </span>
+              <span class="option-meta">Main mix</span>
+            </button>
+
+            <button
+              class="option-button"
+              type="button"
+              data-version="Instrumental"
+            >
+              <span class="option-main">
+                <span class="option-dot"></span>
+                Instrumental
+              </span>
+              <span class="option-meta">No vocals</span>
+            </button>
+
+            <button
+              class="option-button"
+              type="button"
+              data-version="A Cappella"
+            >
+              <span class="option-main">
+                <span class="option-dot"></span>
+                A Cappella
+              </span>
+              <span class="option-meta">Original voices</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="side-card">
+          <h3 class="side-title">Streaming quality</h3>
+
+          <div class="quality-options" id="qualityOptions">
+            <button
+              class="option-button active"
+              type="button"
+              data-quality="Lossless · 24-bit / 48 kHz"
+            >
+              <span class="option-main">
+                <span class="option-dot"></span>
+                Lossless
+              </span>
+              <span class="option-meta">24-bit / 48 kHz</span>
+            </button>
+
+            <button
+              class="option-button"
+              type="button"
+              data-quality="Hi-Res · 24-bit / 96 kHz"
+            >
+              <span class="option-main">
+                <span class="option-dot"></span>
+                Hi-Res
+              </span>
+              <span class="option-meta">24-bit / 96 kHz</span>
+            </button>
+          </div>
+
+          <p class="streaming-note">
+            <strong>Streaming only</strong>
+            Reproduction inside the player. No visible download button.
+          </p>
+        </section>
+
+        <section class="side-card" id="links">
+          <h3 class="side-title">Listen on your platform</h3>
+
+          <div class="platforms">
+            <a
+              class="platform-link"
+              href="https://open.spotify.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Spotify
+            </a>
+
+            <a
+              class="platform-link"
+              href="https://music.apple.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apple Music
+            </a>
+
+            <a
+              class="platform-link"
+              href="https://music.youtube.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube Music
+            </a>
+
+            <a
+              class="platform-link"
+              href="https://music.amazon.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Amazon Music
+            </a>
+          </div>
+
+          <p class="coming-soon">
+            The final SWN links will replace these provisional destinations.
+          </p>
+        </section>
+      </aside>
+    </section>
+
+    <div class="footer-symbol" aria-hidden="true">
+      <span class="footer-axis"></span>
+    </div>
+    <div class="footer-line" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    "use strict";
+
+    const tracks = [
+      {
+        title: "I Tango You",
+        duration: 252
+      },
+      {
+        title: "Believe in Yourself",
+        duration: 248
+      },
+      {
+        title: "Slow Down",
+        duration: 276
+      },
+      {
+        title: "Is It You",
+        duration: 255
+      }
+    ];
+
+    const state = {
+      trackIndex: 0,
+      currentTime: 0,
+      isPlaying: false,
+      version: "Original",
+      quality: "Lossless · 24-bit / 48 kHz",
+      timer: null
+    };
+
+    const waveform = document.getElementById("waveform");
+    const waveformShell = document.getElementById("waveformShell");
+    const playhead = document.getElementById("playhead");
+    const playButton = document.getElementById("playButton");
+    const previousButton = document.getElementById("previousButton");
+    const nextButton = document.getElementById("nextButton");
+    const elapsedTime = document.getElementById("elapsedTime");
+    const totalTime = document.getElementById("totalTime");
+    const trackTitle = document.getElementById("trackTitle");
+    const trackNumber = document.getElementById("trackNumber");
+    const versionName = document.getElementById("versionName");
+    const qualityBadge = document.getElementById("qualityBadge");
+    const trackList = document.getElementById("trackList");
+    const coverWrap = document.getElementById("coverWrap");
+    const favoriteButton = document.getElementById("favoriteButton");
+    const mobileMenuButton = document.getElementById("mobileMenuButton");
+    const mobileNav = document.getElementById("mobileNav");
+
+    function formatTime(seconds) {
+      const safeSeconds = Math.max(0, Math.floor(seconds));
+      const minutes = Math.floor(safeSeconds / 60);
+      const remainingSeconds = safeSeconds % 60;
+
+      return (
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(remainingSeconds).padStart(2, "0")
+      );
+    }
+
+    function createWaveform() {
+      waveform.innerHTML = "";
+
+      const barCount = 112;
+
+      for (let index = 0; index < barCount; index += 1) {
+        const bar = document.createElement("span");
+        const waveA = Math.sin(index * 0.31) * 22;
+        const waveB = Math.sin(index * 0.11 + 1.7) * 17;
+        const centerRise =
+          Math.sin((index / barCount) * Math.PI) * 31;
+        const randomness = ((index * 17) % 19) - 9;
+        const height = Math.max(
+          8,
+          Math.min(88, 18 + waveA + waveB + centerRise + randomness)
+        );
+
+        bar.className = "wave-bar";
+        bar.style.setProperty("--bar-height", height + "px");
+        bar.style.setProperty("--index", index);
+
+        waveform.appendChild(bar);
+      }
+    }
+
+    function renderTrackList() {
+      trackList.innerHTML = "";
+
+      tracks.forEach((track, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className =
+          "track-row" + (index === state.trackIndex ? " active" : "");
+
+        button.innerHTML = `
+          <span class="track-index">${String(index + 1).padStart(2, "0")}</span>
+          <span class="track-row-title">${track.title}</span>
+          <span class="track-duration">${formatTime(track.duration)}</span>
+          <span class="track-mini-wave">${index === state.trackIndex ? "▥" : "◇"}</span>
+        `;
+
+        button.addEventListener("click", () => {
+          loadTrack(index, true);
+        });
+
+        trackList.appendChild(button);
+      });
+    }
+
+    function updateWaveformProgress() {
+      const track = tracks[state.trackIndex];
+      const progress =
+        track.duration > 0
+          ? Math.min(1, state.currentTime / track.duration)
+          : 0;
+
+      playhead.style.left = progress * 100 + "%";
+
+      const bars = waveform.querySelectorAll(".wave-bar");
+      const activeBars = Math.floor(progress * bars.length);
+
+      bars.forEach((bar, index) => {
+        bar.classList.toggle("active", index <= activeBars);
+      });
+
+      waveformShell.setAttribute(
+        "aria-valuenow",
+        String(Math.round(progress * 100))
+      );
+    }
+
+    function updatePlayerDisplay() {
+      const track = tracks[state.trackIndex];
+
+      trackTitle.textContent = track.title;
+      trackNumber.textContent =
+        "Track " +
+        String(state.trackIndex + 1).padStart(2, "0") +
+        " / " +
+        String(tracks.length).padStart(2, "0");
+
+      elapsedTime.textContent = formatTime(state.currentTime);
+      totalTime.textContent = formatTime(track.duration);
+      versionName.textContent = state.version + " version";
+      qualityBadge.textContent = state.quality;
+
+      playButton.textContent = state.isPlaying ? "Ⅱ" : "▶";
+      playButton.setAttribute(
+        "aria-label",
+        state.isPlaying ? "Pause" : "Play"
+      );
+
+      waveform.classList.toggle("playing", state.isPlaying);
+      coverWrap.classList.toggle("playing", state.isPlaying);
+
+      updateWaveformProgress();
+      renderTrackList();
+    }
+
+    function stopTimer() {
+      if (state.timer !== null) {
+        window.clearInterval(state.timer);
+        state.timer = null;
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+
+      state.timer = window.setInterval(() => {
+        const track = tracks[state.trackIndex];
+
+        state.currentTime += 1;
+
+        if (state.currentTime >= track.duration) {
+          nextTrack();
+          return;
+        }
+
+        elapsedTime.textContent = formatTime(state.currentTime);
+        updateWaveformProgress();
+      }, 1000);
+    }
+
+    function togglePlayback() {
+      state.isPlaying = !state.isPlaying;
+
+      if (state.isPlaying) {
+        startTimer();
+      } else {
+        stopTimer();
+      }
+
+      updatePlayerDisplay();
+    }
+
+    function loadTrack(index, autoplay) {
+      stopTimer();
+
+      state.trackIndex =
+        (index + tracks.length) % tracks.length;
+      state.currentTime = 0;
+      state.isPlaying = Boolean(autoplay);
+
+      if (state.isPlaying) {
+        startTimer();
+      }
+
+      updatePlayerDisplay();
+    }
+
+    function previousTrack() {
+      if (state.currentTime > 4) {
+        state.currentTime = 0;
+        updatePlayerDisplay();
+        return;
+      }
+
+      loadTrack(state.trackIndex - 1, state.isPlaying);
+    }
+
+    function nextTrack() {
+      loadTrack(state.trackIndex + 1, state.isPlaying);
+    }
+
+    function seekFromPointer(clientX) {
+      const bounds = waveformShell.getBoundingClientRect();
+      const relativeX = Math.min(
+        Math.max(clientX - bounds.left, 0),
+        bounds.width
+      );
+      const ratio = relativeX / bounds.width;
+      const track = tracks[state.trackIndex];
+
+      state.currentTime = ratio * track.duration;
+      updatePlayerDisplay();
+    }
+
+    playButton.addEventListener("click", togglePlayback);
+    previousButton.addEventListener("click", previousTrack);
+    nextButton.addEventListener("click", nextTrack);
+
+    waveformShell.addEventListener("click", (event) => {
+      seekFromPointer(event.clientX);
+    });
+
+    waveformShell.addEventListener("keydown", (event) => {
+      const track = tracks[state.trackIndex];
+
+      if (event.key === "ArrowRight") {
+        state.currentTime = Math.min(
+          track.duration,
+          state.currentTime + 5
+        );
+        updatePlayerDisplay();
+      }
+
+      if (event.key === "ArrowLeft") {
+        state.currentTime = Math.max(
+          0,
+          state.currentTime - 5
+        );
+        updatePlayerDisplay();
+      }
+    });
+
+    document
+      .querySelectorAll("[data-version]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-version]")
+            .forEach((item) => item.classList.remove("active"));
+
+          button.classList.add("active");
+          state.version = button.dataset.version;
+          state.currentTime = 0;
+
+          updatePlayerDisplay();
+        });
+      });
+
+    document
+      .querySelectorAll("[data-quality]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-quality]")
+            .forEach((item) => item.classList.remove("active"));
+
+          button.classList.add("active");
+          state.quality = button.dataset.quality;
+
+          updatePlayerDisplay();
+        });
+      });
+
+    favoriteButton.addEventListener("click", () => {
+      favoriteButton.classList.toggle("active");
+      favoriteButton.textContent =
+        favoriteButton.classList.contains("active") ? "♥" : "♡";
+    });
+
+    mobileMenuButton.addEventListener("click", () => {
+      const isOpen = mobileNav.classList.toggle("open");
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+      mobileMenuButton.textContent = isOpen ? "×" : "☰";
+    });
+
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+        mobileMenuButton.textContent = "☰";
+      });
+    });
+
+    createWaveform();
+    updatePlayerDisplay();
+  </script>
+</body>
+</html>
