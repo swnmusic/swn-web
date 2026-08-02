@@ -1,45 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
-  <meta name="description" content="Official website of SWN">
-  <title>SWN</title>
-  <style>
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-      background: #000;
-    }
-    body {
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-    main {
-      width: 100vw;
-      height: 100svh;
-      display: grid;
-      place-items: center;
-      background: #000;
-    }
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SWN</title>
+
+<style>
+html,body{
+margin:0;
+background:#000;
+height:100%;
+}
+
+body{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+background:#000;
+overflow:hidden;
+}
+
+img{
+display:block;
+width:100%;
+height:auto;
+max-height:100vh;
+object-fit:contain;
+}
+</style>
+
 </head>
+
 <body>
-  <main>
-    <img src="swn-landing.jpeg" alt="SWN — official website">
-  </main>
+
+<img src="swn-landing.jpeg" alt="SWN">
+
 </body>
 </html>
