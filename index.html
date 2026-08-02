@@ -1,41 +1,72 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Official website of SWN">
 
-<title>SWN</title>
+  <title>SWN</title>
 
-<style>
-html,body{
-margin:0;
-background:#000;
-height:100%;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-body{
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-background:#000;
-overflow:hidden;
-}
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100%;
+      background: #000;
+    }
 
-img{
-display:block;
-width:100%;
-height:auto;
-max-height:100vh;
-object-fit:contain;
-}
-</style>
+    body {
+      min-height: 100svh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      background: #000;
+    }
 
+    main {
+      width: 100%;
+      min-height: 100svh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #000;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 100svh;
+      object-fit: contain;
+      object-position: center;
+      margin-top: 12vh;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    @media (orientation: landscape) {
+      body,
+      main {
+        align-items: center;
+      }
+
+      img {
+        margin-top: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<img src="swn-landing.jpeg" alt="SWN">
-
+  <main>
+    <img src="swn-landing.jpeg" alt="SWN — official website">
+  </main>
 </body>
 </html>
