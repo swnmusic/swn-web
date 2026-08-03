@@ -1022,6 +1022,228 @@
         transition-duration: 0.01ms !important;
       }
     }
+      
+      /* SWN · Mobile player */
+      @media (max-width: 780px) {
+        .hero {
+          display: none;
+        }
+
+        .music-shell {
+          width: 100%;
+          margin: 0 0 56px;
+          padding: 16px 14px 0;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .main-column,
+        .side-column {
+          display: contents;
+        }
+
+        .player-card {
+          order: 1;
+          width: 100%;
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+          box-shadow: none;
+        }
+
+        .side-column .side-card:nth-child(1) {
+          order: 2;
+        }
+
+        .side-column .side-card:nth-child(2) {
+          order: 3;
+        }
+
+        .track-list {
+          order: 4;
+        }
+
+        .side-column .side-card:last-child {
+          order: 5;
+        }
+
+        .player-layout {
+          display: block;
+        }
+
+        .cover-wrap {
+          width: 100%;
+          max-width: none;
+          margin: 0 0 22px;
+          aspect-ratio: 1;
+          border-radius: 16px;
+        }
+
+        .cover-wrap img {
+          object-position: center;
+        }
+
+        .cover-shade {
+          background: linear-gradient(
+            to bottom,
+            transparent 72%,
+            rgba(0, 0, 0, 0.52)
+          );
+        }
+
+        .cover-title {
+          display: none;
+        }
+
+        .track-heading {
+          margin: 0 4px;
+          align-items: center;
+        }
+
+        .track-number {
+          margin-bottom: 7px;
+          font-size: 10px;
+        }
+
+        .track-title {
+          font-size: 38px;
+        }
+
+        .track-artist {
+          margin-top: 6px;
+          font-size: 17px;
+        }
+
+        .version-name {
+          display: none;
+        }
+
+        .waveform-shell {
+          margin-top: 14px;
+          padding: 10px 0 5px;
+        }
+
+        .waveform {
+          height: 72px;
+          gap: 2px;
+        }
+
+        .transport {
+          margin-top: 9px;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          gap: 6px;
+        }
+
+        .transport-left,
+        .transport-right {
+          width: 100%;
+          justify-content: space-around;
+          gap: 0;
+          order: 0;
+        }
+
+        .play-button {
+          width: 76px;
+          height: 76px;
+          order: 0;
+        }
+
+        .control-button {
+          width: 44px;
+          height: 44px;
+        }
+
+        .volume-control,
+        .quality-badge {
+          display: none;
+        }
+
+        .side-card {
+          width: 100%;
+          padding: 16px;
+          border-radius: 16px;
+          box-shadow: none;
+        }
+
+        .version-options {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 7px;
+        }
+
+        .quality-options {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+        }
+
+        .option-button {
+          min-height: 60px;
+          padding: 11px 9px;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 5px;
+        }
+
+        .version-options .option-button {
+          align-items: center;
+          text-align: center;
+        }
+
+        .version-options .option-main {
+          justify-content: center;
+        }
+
+        .version-options .option-meta {
+          display: none;
+        }
+
+        .option-meta {
+          white-space: normal;
+          font-size: 10px;
+          line-height: 1.25;
+        }
+
+        .streaming-note {
+          display: none;
+        }
+
+        .track-list {
+          padding: 4px;
+          border-radius: 16px;
+          box-shadow: none;
+        }
+
+        .track-row {
+          grid-template-columns: 30px minmax(0, 1fr) auto;
+          padding: 15px 11px;
+        }
+
+        .track-row-title {
+          font-size: 15px;
+        }
+
+        .coming-soon {
+          display: none;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .music-shell {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        .track-title {
+          font-size: 34px;
+        }
+
+        .option-button {
+          font-size: 13px;
+        }
+      }
   </style>
 </head>
 
