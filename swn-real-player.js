@@ -71,6 +71,7 @@
   const versionName = document.getElementById("versionName");
   const qualityBadge = document.getElementById("qualityBadge");
   const coverWrap = document.getElementById("coverWrap");
+    const coverVideo = document.querySelector(".cover-video");
   const heroCopy = document.querySelector(".hero-copy");
 
   if (heroCopy) {
@@ -446,11 +447,30 @@
   });
 
   audio.addEventListener("timeupdate", updateDisplay);
-  audio.addEventListener("play", updateDisplay);
-  audio.addEventListener("pause", updateDisplay);
-  audio.addEventListener("ended", () => {
-    audio.currentTime = 0;
-    updateDisplay();
+    audio.addEventListener("play", () => {
+      if (coverVideo) {
+        coverVideo.play().catch(() => {});
+      }
+      updateDisplay();
+    });
+
+    audio.addEventListener("pause", () => {
+      if (coverVideo) {
+        coverVideo.pause();
+      }
+      updateDisplay();
+    });
+
+    audio.addEventListener("ended", () => {
+      audio.currentTime = 0;
+
+      if (coverVideo) {
+        coverVideo.pause();
+        coverVideo.currentTime = 0;
+      }
+
+      updateDisplay();
+    });
   });
 
   audio.addEventListener("error", () => {
