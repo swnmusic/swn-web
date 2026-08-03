@@ -471,7 +471,7 @@
 
       updateDisplay();
     });
-  });
+  
 
   audio.addEventListener("error", () => {
     if (
