@@ -11,12 +11,20 @@
     {
       title: "I Tango You",
       fallbackDuration: 278,
-      sources: {
-        Original: {
-          lossless: "AUDIO/i-tango-you-original-24-48.flac",
-          standard: "AUDIO/i-tango-you-original-320.mp3"
+        sources: {
+          original: {
+            lossless: "AUDIO/i-tango-you-original-24-48.flac",
+            standard: "AUDIO/i-tango-you-original-320.mp3"
+          },
+          instrumental: {
+            lossless: "AUDIO/i-tango-you-instrumental-24-48.flac",
+            standard: "AUDIO/i-tango-you-instrumental-320.mp3"
+          },
+          acappella: {
+            lossless: "AUDIO/i-tango-you-acappella-24-48.flac",
+            standard: "AUDIO/i-tango-you-acappella-320.mp3"
+          }
         }
-      }
     },
     {
       title: "Believe in Yourself",
