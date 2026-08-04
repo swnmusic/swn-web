@@ -12,15 +12,15 @@
       title: "I Tango You",
       fallbackDuration: 278,
         sources: {
-          original: {
+          Original: {
             lossless: "AUDIO/i-tango-you-original-24-48.flac",
             standard: "AUDIO/i-tango-you-original-320.mp3"
           },
-          instrumental: {
+          Instrumental: {
             lossless: "AUDIO/i-tango-you-instrumental-24-48.flac",
             standard: "AUDIO/i-tango-you-instrumental-320.mp3"
           },
-          acappella: {
+          "A Cappella": {
             lossless: "AUDIO/i-tango-you-acappella-24-48.flac",
             standard: "AUDIO/i-tango-you-acappella-320.mp3"
           }
