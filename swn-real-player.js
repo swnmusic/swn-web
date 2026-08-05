@@ -193,7 +193,39 @@
         );
       });
   }
+    const fallbackWaveformHTML = waveform.innerHTML;
+    function renderRealWaveform() {
+      const trackWaveforms =
+        window.SWN_WAVEFORMS?.[currentTrack().title];
 
+      const values = trackWaveforms?.[state.version];
+
+        if (!Array.isArray(values) || values.length === 0) {
+          waveform.innerHTML = fallbackWaveformHTML;
+          waveform.style.display = "";
+          waveform.style.gridTemplateColumns = "";
+          waveform.style.gap = "";
+          waveform.style.alignItems = "";
+          return;
+        }
+      waveform.innerHTML = "";
+      waveform.style.display = "grid";
+      waveform.style.gridTemplateColumns =
+        `repeat(${values.length}, minmax(0, 1fr))`;
+      waveform.style.gap = "0.35px";
+      waveform.style.alignItems = "center";
+
+      values.forEach((value) => {
+        const bar = document.createElement("span");
+        bar.className = "wave-bar";
+        bar.style.width = "100%";
+        bar.style.minWidth = "0";
+        bar.style.height =
+          `${Math.max(6, Math.round(Number(value) * 100))}%`;
+
+        waveform.appendChild(bar);
+      });
+    }
   function updateWaveformProgress() {
     const duration = currentDuration();
     const progress =
@@ -287,7 +319,7 @@
 
   function loadCurrentSource({ startTime = 0, autoplay = false } = {}) {
     const source = currentSource();
-
+      renderRealWaveform();
     if (!source) {
       clearAudio();
       updateDisplay();
