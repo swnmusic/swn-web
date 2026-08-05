@@ -192,36 +192,71 @@
           button.dataset.qualityKey === state.quality
         );
       });
-  }
-    const fallbackWaveformHTML = waveform.innerHTML;
+  } const fallbackWaveformHTML = waveform.innerHTML;
     function renderRealWaveform() {
       const trackWaveforms =
         window.SWN_WAVEFORMS?.[currentTrack().title];
 
       const values = trackWaveforms?.[state.version];
 
-        if (!Array.isArray(values) || values.length === 0) {
-          waveform.innerHTML = fallbackWaveformHTML;
-          waveform.style.display = "";
-          waveform.style.gridTemplateColumns = "";
-          waveform.style.gap = "";
-          waveform.style.alignItems = "";
-          return;
+      if (!Array.isArray(values) || values.length === 0) {
+        waveform.innerHTML = fallbackWaveformHTML;
+        waveform.style.display = "";
+        waveform.style.gridTemplateColumns = "";
+        waveform.style.gap = "";
+        waveform.style.alignItems = "";
+        return;
+      }
+
+      const visibleBarCount = 128;
+
+      const groupedValues = Array.from(
+        { length: visibleBarCount },
+        (_, index) => {
+          const start = Math.floor(
+            (index * values.length) / visibleBarCount
+          );
+
+          const end = Math.max(
+            start + 1,
+            Math.floor(
+              ((index + 1) * values.length) / visibleBarCount
+            )
+          );
+
+          const group = values.slice(start, end);
+
+          const average =
+            group.reduce((sum, value) => sum + value, 0) /
+            group.length;
+
+          const peak = Math.max(...group);
+
+          return average * 0.65 + peak * 0.35;
         }
+      );
+
+      const minimum = Math.min(...groupedValues);
+      const maximum = Math.max(...groupedValues);
+      const range = Math.max(0.0001, maximum - minimum);
+
       waveform.innerHTML = "";
       waveform.style.display = "grid";
       waveform.style.gridTemplateColumns =
-        `repeat(${values.length}, minmax(0, 1fr))`;
-      waveform.style.gap = "0.35px";
+        `repeat(${visibleBarCount}, minmax(0, 1fr))`;
+      waveform.style.gap = "1px";
       waveform.style.alignItems = "center";
 
-      values.forEach((value) => {
+      groupedValues.forEach((value) => {
+        const normalized = (value - minimum) / range;
+        const shaped = Math.pow(normalized, 1.25);
+        const height = Math.round(12 + shaped * 88);
+
         const bar = document.createElement("span");
         bar.className = "wave-bar";
         bar.style.width = "100%";
         bar.style.minWidth = "0";
-        bar.style.height =
-          `${Math.max(6, Math.round(Number(value) * 100))}%`;
+        bar.style.height = `${height}%`;
 
         waveform.appendChild(bar);
       });
