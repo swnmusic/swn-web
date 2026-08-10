@@ -216,7 +216,7 @@
           track.title === "Slow Down"
             ? "center 62%"
             : track.title === "Is It You"
-              ? "center 44%"
+              ? "center 28%"
               : "center 42%";
       const newSrc = new URL(track.canvas, document.baseURI).href;
 
