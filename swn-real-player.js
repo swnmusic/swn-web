@@ -67,9 +67,23 @@
     },
     {
       title: "Is It You",
-      fallbackDuration: 255,
+      fallbackDuration: 215,
       canvas: "is-it-you-canvas.mp4",
-      sources: {}
+      sources: {
+        Original: {
+          lossless: "AUDIO/is-it-you-original-24-48.flac",
+          standard: "AUDIO/is-it-you-original-320.mp3"
+        },
+        Instrumental: {
+          lossless: "AUDIO/is-it-you-instrumental-24-48.flac",
+          standard: "AUDIO/is-it-you-instrumental-320.mp3"
+        },
+        "A Cappella": {
+          lossless: "AUDIO/is-it-you-acappella-24-48.flac",
+          standard: "AUDIO/is-it-you-acappella-320.mp3"
+        }
+      }
+    }
     }
   ];
 
