@@ -188,6 +188,8 @@
   }
     function updateCanvas() {
       const track = currentTrack();
+        coverVideo.style.objectPosition =
+          track.title === "Slow Down" ? "center bottom" : "center 42%";
         coverWrap.classList.toggle(
           "slow-down-canvas",
           track.title === "Slow Down"
