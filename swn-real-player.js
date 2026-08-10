@@ -405,7 +405,7 @@
     playButton.style.opacity = playButton.disabled ? "0.45" : "1";
     playButton.style.cursor = playButton.disabled ? "not-allowed" : "pointer";
 
-    waveform.classList.toggle("playing", isPlaying);
+    
     coverWrap.classList.toggle("playing", isPlaying);
 
     updateOptionButtons();
