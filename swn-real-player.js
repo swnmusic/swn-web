@@ -49,7 +49,21 @@
     {
       title: "Slow Down",
       fallbackDuration: 276,
-      sources: {}
+        canvas: "slow-down-canvas.mp4",
+        sources: {
+          Original: {
+            lossless: "AUDIO/slow-down-original-24-48.flac",
+            standard: "AUDIO/slow-down-original-320.mp3"
+          },
+          Instrumental: {
+            lossless: "AUDIO/slow-down-instrumental-24-48.flac",
+            standard: "AUDIO/slow-down-instrumental-320.mp3"
+          },
+          "A Cappella": {
+            lossless: "AUDIO/slow-down-acappella-24-48.flac",
+            standard: "AUDIO/slow-down-acappella-320.mp3"
+          }
+        }
     },
     {
       title: "Is It You",
