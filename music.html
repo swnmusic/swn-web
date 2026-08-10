@@ -275,7 +275,7 @@
       height: 100%;
       display: block;
       object-fit: cover;
-      object-position: center 95%;
+      object-position: center 42%;
       opacity: 0.92;
       transition: transform 1.2s ease, filter 1.2s ease;
     }
@@ -1078,7 +1078,24 @@
           aspect-ratio: 16 / 9;
           border-radius: 16px;
         }
+        .cover-wrap.slow-down-canvas {
+          aspect-ratio: 9 / 16;
+          max-height: 72vh;
+        }
 
+        .cover-wrap.slow-down-canvas .cover-video {
+          object-fit: cover;
+          object-position: center bottom;
+        }
+        .cover-wrap.slow-down-active {
+          width: min(72vw, 320px);
+          margin: 0 auto 12px;
+          aspect-ratio: 9 / 16;
+        }
+
+        .cover-wrap.slow-down-active .cover-video {
+          object-position: center bottom;
+        }
         .cover-wrap img,
         .cover-video {
             object-position: center 42%;
@@ -1888,6 +1905,6 @@
     createWaveform();
     updatePlayerDisplay();
   </script> <script src="swn-waveforms.js?v=6"></script>
-  <script src="swn-real-player.js?v=16"></script>
+  <script src="swn-real-player.js?v=17"></script>
 </body>
 </html>

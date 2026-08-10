@@ -188,7 +188,11 @@
   }
     function updateCanvas() {
       const track = currentTrack();
-
+        coverWrap.classList.toggle(
+          "slow-down-canvas",
+          track.title === "Slow Down"
+        );
+        coverWrap.classList.toggle("slow-down-active", track.title === "Slow Down");
       if (!coverVideo || !track.canvas) {
         return;
       }
