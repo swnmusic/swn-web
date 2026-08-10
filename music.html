@@ -998,7 +998,11 @@
         width: 90px;
       }
     }
-
+      @media (hover: none) and (pointer: coarse) {
+        .volume-control {
+          display: none !important;
+        }
+      }
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
