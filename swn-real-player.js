@@ -11,6 +11,7 @@
     {
       title: "I Tango You",
       fallbackDuration: 278,
+        canvas: "i-tango-you-canvas.mp4",
         sources: {
           Original: {
             lossless: "AUDIO/i-tango-you-original-24-48.flac",
@@ -28,8 +29,22 @@
     },
     {
       title: "Believe in Yourself",
-      fallbackDuration: 248,
-      sources: {}
+      fallbackDuration: 283,
+        canvas: "believe-in-yourself-canvas.mp4",
+      sources: {
+        Original: {
+          lossless: "AUDIO/believe-in-yourself-original-24-48.flac",
+          standard: "AUDIO/believe-in-yourself-original-320.mp3"
+        },
+        Instrumental: {
+          lossless: "AUDIO/believe-in-yourself-instrumental-24-48.flac",
+          standard: "AUDIO/believe-in-yourself-instrumental-320.mp3"
+        },
+        "A Cappella": {
+          lossless: "AUDIO/believe-in-yourself-acappella-24-48.flac",
+          standard: "AUDIO/believe-in-yourself-acappella-320.mp3"
+        }
+      }
     },
     {
       title: "Slow Down",
@@ -157,6 +172,20 @@
   function currentTrack() {
     return tracks[state.trackIndex];
   }
+    function updateCanvas() {
+      const track = currentTrack();
+
+      if (!coverVideo || !track.canvas) {
+        return;
+      }
+
+      const newSrc = new URL(track.canvas, document.baseURI).href;
+
+      if (coverVideo.src !== newSrc) {
+        coverVideo.src = newSrc;
+        coverVideo.load();
+      }
+    }
 
   function currentSource() {
     const track = currentTrack();
@@ -394,6 +423,7 @@
 
     state.trackIndex = normalizedIndex;
     state.version = "Original";
+      updateCanvas();
     loadCurrentSource({ startTime: 0, autoplay });
   }
 
