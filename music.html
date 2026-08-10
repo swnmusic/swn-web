@@ -419,19 +419,7 @@
         drop-shadow(0 0 5px rgba(216, 168, 82, 0.5));
     }
 
-    .waveform.playing .wave-bar {
-      animation: breathe 1.8s ease-in-out infinite alternate;
-      animation-delay: calc(var(--index) * -22ms);
-    }
-
-    @keyframes breathe {
-      from {
-        transform: scaleY(0.88);
-      }
-      to {
-        transform: scaleY(1.08);
-      }
-    }
+    
 
     .playhead {
       position: absolute;
@@ -1891,7 +1879,7 @@
     createWaveform();
     updatePlayerDisplay();
   </script> <script src="swn-waveforms.js?v=11"></script>
-  <script src="swn-real-player.js?v=34
+  <script src="swn-real-player.js?v=35
 "></script>
 </body>
 </html>
