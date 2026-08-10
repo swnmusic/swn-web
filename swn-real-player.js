@@ -68,6 +68,7 @@
     {
       title: "Is It You",
       fallbackDuration: 255,
+      canvas: "is-it-you-canvas.mp4",
       sources: {}
     }
   ];
