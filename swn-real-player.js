@@ -211,6 +211,9 @@
         coverVideo.src = newSrc;
         coverVideo.load();
       }
+        if (!currentSource()) {
+          coverVideo.play().catch(() => {});
+        }
     }
 
   function currentSource() {
