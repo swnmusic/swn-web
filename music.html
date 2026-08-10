@@ -998,7 +998,11 @@
         width: 90px;
       }
     }
-      @media (hover: none) and (pointer: coarse) {
+      @media (orientation: landscape) and (max-height: 500px) {
+        .volume-control {
+          display: none !important;
+        }
+      }
         .volume-control {
           display: none !important;
         }
