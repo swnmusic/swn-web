@@ -188,16 +188,18 @@
   }
     function updateCanvas() {
       const track = currentTrack();
-        coverVideo.style.objectPosition =
-          track.title === "Slow Down" ? "center bottom" : "center 42%";
-        coverWrap.classList.toggle(
-          "slow-down-canvas",
-          track.title === "Slow Down"
-        );
-        coverWrap.classList.toggle("slow-down-active", track.title === "Slow Down");
-      if (!coverVideo || !track.canvas) {
+
+      if (!coverWrap || !coverVideo || !track.canvas) {
         return;
       }
+
+      coverWrap.classList.remove("slow-down-canvas", "slow-down-active");
+      coverWrap.style.aspectRatio = "16 / 9";
+      coverWrap.style.maxHeight = "none";
+
+      coverVideo.style.objectFit = "cover";
+      coverVideo.style.objectPosition =
+        track.title === "Slow Down" ? "center 70%" : "center 42%";
 
       const newSrc = new URL(track.canvas, document.baseURI).href;
 
